@@ -152,6 +152,31 @@ public class Utils {
         }
     }
 
+    public static void VWAPNonGuaranteedOrder(ClOrdID clOrdID, Account account, OrderQty orderQty, HandlInst orderHandlInst,
+                                           Symbol orderSymbol, Side orderSide, EffectiveTime effectiveTime, Price VWAPPrice,
+                                              CustomerOrFirm customerOrFirm, HandlInst handlInst, Currency currency) {
+
+        // Set tag 40 (OrdType) to P (pegged)
+        NewOrderSingle newOrderSingle = new NewOrderSingle(clOrdID, orderHandlInst, orderSymbol, orderSide,
+                new TransactTime(new Date()), new OrdType(OrdType.LIMIT));
+        newOrderSingle.set(account);
+        newOrderSingle.set(orderQty);
+        newOrderSingle.set(new TimeInForce(TimeInForce.DAY));
+        // Set tag 100 (ExDestination) to SMART
+        newOrderSingle.set(new ExDestination("SMART"));
+        // Set tag 18 (ExecInst) to E
+        newOrderSingle.set(new ExecInst(String.valueOf(ExecInst.DO_NOT_INCREASE)));
+        newOrderSingle.set(new OpenClose(OpenClose.OPEN));
+        newOrderSingle.set(new SecurityType(SecurityType.COMMON_STOCK));
+        newOrderSingle.set(effectiveTime);
+
+        try {
+            Session.sendToTarget(newOrderSingle, SettingData.sessionID);
+        } catch (SessionNotFound sessionNotFound) {
+            sessionNotFound.printStackTrace();
+        }
+    }
+
 
 
 }

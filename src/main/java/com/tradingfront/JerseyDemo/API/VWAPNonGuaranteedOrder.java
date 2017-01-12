@@ -16,17 +16,21 @@ import java.util.Date;
  * Created by dell on 2017/1/11.
  *
  */
-@Path("/VWAPGuaranteedOrder")
-public class VWAPGuaranteedOrder {
+@Path("/VWAPNonGuaranteedOrder")
+public class VWAPNonGuaranteedOrder {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String sayPlainTextVWAPGuaranteedOrder() {
-        ClOrdID clOrdID = new ClOrdID("6023");
+    public String sayPlainTextVWAPNonGuaranteedOrder() {
+        ClOrdID clOrdID = new ClOrdID("a002");
         Account account = new Account(SettingData.masterAccount);
         OrderQty orderQty = new OrderQty(100);
         HandlInst orderHandlInst = new HandlInst('1');
         Symbol orderSymbol = new Symbol("IBM");
         Side orderSide = new Side(Side.BUY);
+        Price VWAPPrice = new Price(1.80);
+        CustomerOrFirm customerOrFirm = new CustomerOrFirm(0);
+        HandlInst handlInst = new HandlInst(HandlInst.AUTOMATED_EXECUTION_ORDER_PUBLIC);
+        Currency currency = new Currency("USD");
 
         // get VWAP start time
         String startTime = "2017-01-19";
@@ -39,20 +43,25 @@ public class VWAPGuaranteedOrder {
         }
         EffectiveTime effectiveTime = new EffectiveTime(new Date(date.getTime()));
 
-        Utils.VWAPGuaranteedOrder(clOrdID, account, orderQty, orderHandlInst, orderSymbol, orderSide, effectiveTime);
+        Utils.VWAPNonGuaranteedOrder(clOrdID, account, orderQty, orderHandlInst, orderSymbol, orderSide, effectiveTime,
+                VWAPPrice, customerOrFirm, handlInst, currency);
 
-        return "VWAPGuaranteedOrder";
+        return "VWAPNonGuaranteedOrder";
     }
 
     @GET
     @Produces(MediaType.TEXT_XML)
-    public String sayXMLVWAPGuaranteedOrder() {
-        ClOrdID clOrdID = new ClOrdID("6023");
+    public String sayXMLVWAPNonGuaranteedOrder() {
+        ClOrdID clOrdID = new ClOrdID("a002");
         Account account = new Account(SettingData.masterAccount);
         OrderQty orderQty = new OrderQty(100);
         HandlInst orderHandlInst = new HandlInst('1');
         Symbol orderSymbol = new Symbol("IBM");
         Side orderSide = new Side(Side.BUY);
+        Price VWAPPrice = new Price(1.80);
+        CustomerOrFirm customerOrFirm = new CustomerOrFirm(0);
+        HandlInst handlInst = new HandlInst(HandlInst.AUTOMATED_EXECUTION_ORDER_PUBLIC);
+        Currency currency = new Currency("USD");
 
         // get VWAP start time
         String startTime = "2017-01-19";
@@ -65,21 +74,27 @@ public class VWAPGuaranteedOrder {
         }
         EffectiveTime effectiveTime = new EffectiveTime(new Date(date.getTime()));
 
-        Utils.VWAPGuaranteedOrder(clOrdID, account, orderQty, orderHandlInst, orderSymbol, orderSide, effectiveTime);
+        Utils.VWAPNonGuaranteedOrder(clOrdID, account, orderQty, orderHandlInst, orderSymbol, orderSide, effectiveTime,
+                VWAPPrice, customerOrFirm, handlInst, currency);
 
-        return "<?xml version=\"1.0\"?>" + "<hello>VWAPGuaranteedOrder" + "</hello>";
+        return "<?xml version=\"1.0\"?>" + "<hello>VWAPNonGuaranteedOrder" + "</hello>";
     }
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public String sayHtmlVWAPGuaranteedOrder() {
+    public String sayHtmlVWAPNonGuaranteedOrder() {
 
-        ClOrdID clOrdID = new ClOrdID("6023");
+        ClOrdID clOrdID = new ClOrdID("a002");
         Account account = new Account(SettingData.masterAccount);
         OrderQty orderQty = new OrderQty(100);
         HandlInst orderHandlInst = new HandlInst('1');
         Symbol orderSymbol = new Symbol("IBM");
         Side orderSide = new Side(Side.BUY);
+        Price VWAPPrice = new Price(1.80);
+        CustomerOrFirm customerOrFirm = new CustomerOrFirm(0);
+        HandlInst handlInst = new HandlInst(HandlInst.AUTOMATED_EXECUTION_ORDER_PUBLIC);
+        Currency currency = new Currency("USD");
+
 
         // get VWAP start time
         String startTime = "2017-01-19";
@@ -92,9 +107,10 @@ public class VWAPGuaranteedOrder {
         }
         EffectiveTime effectiveTime = new EffectiveTime(new Date(date.getTime()));
 
-        Utils.VWAPGuaranteedOrder(clOrdID, account, orderQty, orderHandlInst, orderSymbol, orderSide, effectiveTime);
+        Utils.VWAPNonGuaranteedOrder(clOrdID, account, orderQty, orderHandlInst, orderSymbol, orderSide, effectiveTime,
+                VWAPPrice, customerOrFirm, handlInst, currency);
 
-        return "<html> " + "<title>" + "VWAPGuaranteedOrder" + "</title>"
-                + "<body><h1>" + "Hello VWAPGuaranteedOrder" + "</body></h1>" + "</html> ";
+        return "<html> " + "<title>" + "VWAPNonGuaranteedOrder" + "</title>"
+                + "<body><h1>" + "Hello VWAPNonGuaranteedOrder" + "</body></h1>" + "</html> ";
     }
 }
